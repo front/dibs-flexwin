@@ -1,4 +1,4 @@
-#dibs
+#dibs-flexwin
 A wrapper for the [DIBS Payment Services](http://www.dibspayment.com/) [Flexwin API](http://tech.dibs.dk/dibs_api/flexwin/).
 
 ## Installation
@@ -13,7 +13,7 @@ $ npm install dibs-flexwin
 
  - a basic understanding of the DIBS API is required to use this library
  - the DIBS payment services gateway is NOT a free service and this library is useless
-  without a DIBS account - please see [www.dibspayment.com](www.dibspayment.com) for further information.
+  without a DIBS account - please see [www.dibspayment.com](http://www.dibspayment.com/) for further information.
 
 #### Usage
 
@@ -75,7 +75,7 @@ flexwin.captureTransaction(options, function (err, data){ ... });
 flexwin.authorizeTicket(ticketInfo)
 .then(function(data){
 	...
-	return dibs.captureTransaction(transInfo);
+	return flexwin.captureTransaction(transInfo);
 })
 .then(function onSuccess(data){
 	...
