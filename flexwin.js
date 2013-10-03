@@ -74,6 +74,7 @@ module.exports = {
     }
     options.textreply = 'yes';
     options.fullreply = 'yes';
+    var self = this;
 
     request.post({
       uri: uri,
@@ -83,7 +84,7 @@ module.exports = {
         return p.reject(err);
       }
       try {
-        p.fulfill(parseDibsResponse(body));
+        p.fulfill(self.parseDibsResponse(body));
       }
       catch (err) {
         p.reject(err);
