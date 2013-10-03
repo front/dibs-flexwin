@@ -1,0 +1,26 @@
+{
+  "name": "dibs-flexwin",
+  "version": "0.0.1",
+  "author": "Frontkom <front@front.no>",
+  "description": "A simple wrapper for the DIBS Payment Services Flexwin API",
+  "contributors": [
+    {
+      "name": "Elio Cro",
+      "email": "elio@front.no"
+    }
+  ],
+  "scripts": {
+  },
+  "main" : "./flexwin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/front/dibs-flexwin.git"
+  },
+  "dependencies": {
+    "request": "2.21.x",
+    "mpromise": "0.2.x"
+  },
+  "engines": {
+    "node": ">=0.10.6"
+  }
+}
