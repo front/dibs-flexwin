@@ -9,16 +9,15 @@
       "email": "elio@front.no"
     }
   ],
-  "scripts": {
-  },
-  "main" : "./flexwin",
+  "scripts": {},
+  "main": "./flexwin",
   "repository": {
     "type": "git",
     "url": "https://github.com/front/dibs-flexwin.git"
   },
   "dependencies": {
-    "request": "2.21.x",
-    "mpromise": "0.2.x"
+    "q": "^1.4.1",
+    "request": "^2.65.0"
   },
   "engines": {
     "node": ">=0.10.6"

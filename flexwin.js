@@ -4,7 +4,7 @@
  * A wrapper for the DIBS Payment Services Flexwin API
  */
 
-var Promise = require('mpromise');
+var q = require('q');
 var request = require('request');
 
 request.defaults({
@@ -28,10 +28,8 @@ module.exports = {
    *  This service performs a credit and debit card check and saves the credit card
    *  information for recurring payments.
   */
-  createTicket: function(options, call) {
-    var p = new Promise(call);
-    this.dibsRequest(options, this.createTicketUri, p);
-    return p;
+  createTicket: function(options) {
+    return this.dibsRequest(options, this.createTicketUri);
   },
 
   /**
@@ -43,10 +41,8 @@ module.exports = {
    *  Make a recurring payment using a ticket previously created via the
    *  createTicket service.
   */
-  authorizeTicket: function(options, call) {
-    var p = new Promise(call);
-    this.dibsRequest(options, this.authorizeTicketUri, p);
-    return p;
+  authorizeTicket: function(options) {
+    return this.dibsRequest(options, this.authorizeTicketUri);
   },
 
   /**
@@ -58,38 +54,41 @@ module.exports = {
    *  The second part of any transaction is the capture process. Usually this take place
    *  at the time of shipping the goods to the customer.
   */
-  captureTransaction: function(options, call) {
-    var p = new Promise(call);
-    this.dibsRequest(options, this.captureTransactionUri, p);
-    return p;
+  captureTransaction: function(options) {
+    return this.dibsRequest(options, this.captureTransactionUri);
   },
 
   /*
    *  Executes the https request to the DIBS server and fulfills the promise
    *  with the response JSON Object
   */
-  dibsRequest: function(options, uri, p) {
+  dibsRequest: function(options, uri) {
     if (this.testMode) {
       options.test = 'yes';
     }
     options.textreply = 'yes';
     options.fullreply = 'yes';
+
     var self = this;
+    var d = q.defer();
 
     request.post({
       uri: uri,
       form: options
-    }, function(err, res, body) {
+    },
+    function(err, res, body) {
       if (err) {
-        return p.reject(err);
+        return d.reject(err);
       }
       try {
-        p.fulfill(self.parseDibsResponse(body));
+        d.resolve(self.parseDibsResponse(body));
       }
       catch (err) {
-        p.reject(err);
+        d.reject(err);
       }
     });
+
+    return d.promise;
   },
 
   /*
@@ -100,7 +99,7 @@ module.exports = {
     var res = {};
     for(var i = 0, l = parts.length; i<l; i++) {
       var item = parts[i].split('=');
-      res[item[0]] = item[1];
+      res[item[0]] = decodeURIComponent(item[1]);
     }
     return res;
   }
