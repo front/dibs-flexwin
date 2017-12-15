@@ -16,10 +16,10 @@
     "url": "https://github.com/front/dibs-flexwin.git"
   },
   "dependencies": {
-    "q": "^1.4.1",
-    "request": "^2.65.0"
+    "request": "^2.65.0",
+    "request-promise-native": "^1.0.5"
   },
   "engines": {
-    "node": ">=0.10.6"
+    "node": ">=8.9.0"
   }
 }
